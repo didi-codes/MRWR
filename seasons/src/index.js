@@ -4,7 +4,15 @@ class App extends React.Component {
   constructor(props) {
     // Belongs to Javascript language, in a javascript class the constuctor function is the first function that is going to be called anytime an instance of this class is created
     super(props); 
-    this.state = {lat: null };
+    this.state = { lat: null };
+
+    window.navigator.geolocation.getCurrentPosition(
+      (position) => {
+        // to update our state object we called setState, setState is a function that gets put on our app component when we extended the React.Component
+        this.setState({lat: position.coords.latitude });
+      },
+        (err) => console.log(err)
+    );
   }
   // When we make a class we are creating a new class inside of javascript that has one method assigned to it. React class component expects many other methods attached to it. We borrow these methods from React.Component. We extend to React.Component because it allows us to pull in built-in functionality into our class (subclassing or borrowing functionality into our app class)
   render() {
@@ -14,7 +22,7 @@ class App extends React.Component {
       (err) => console.log(err)
     );
 
-    return <div>Latitude: </div>;
+    return <div>Latitude: {this.state.lat} </div>;
   }
 }
 ReactDOM.render(<App />, document.querySelector('#root'));
