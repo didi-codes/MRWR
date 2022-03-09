@@ -7,7 +7,8 @@ class App extends React.Component {
     this.state = { lat: null };
 
     window.navigator.geolocation.getCurrentPosition(
-      (position) => {
+      // This is our callback
+      (position) => { 
         // to update our state object we called setState, setState is a function that gets put on our app component when we extended the React.Component
         this.setState({lat: position.coords.latitude });
       },
@@ -27,12 +28,18 @@ class App extends React.Component {
 }
 ReactDOM.render(<App />, document.querySelector('#root'));
 
-// JS file loaded by browser
-// App component gets created
-// We call geolocation service
-
-// We get result of geolocation
-// Tell the component to rerender itself with this new information
+/* App Lifecycle
+1. JS file loaded by browser
+2. Instance of App component gets created
+App components 'constructor' function gets called (Not required to define the constructor function we can optionally define it if we want to do something when our component is first created, if you want to define the constructor function you must call the super function if not we are met with an error) 
+3. State object is created and assigned to the 'this.state' property
+4. We call geolocation service
+5. We get result of geolocation
+6. React calls the components render method
+7. App returns JSX, gets rendered to page as HTML
+8. We get result of geolocation!
+Tell the component to rerender itself with this new information
+*\
 
 /*Rules of Class Components
 1. Must be a javascript class
